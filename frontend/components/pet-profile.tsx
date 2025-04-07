@@ -1,23 +1,29 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { Cat, Dog, Fish, Bird, Rabbit, PawPrint } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Cat, Dog, Fish, Bird, Rabbit, PawPrint } from "lucide-react";
 
 interface PetProfileProps {
-  name: string
-  type: string
-  breed: string
-  age: string
-  weight: string
-  notes: string
-  avatar?: string
-  isActive: boolean
-  onSelect: () => void
-  theme: string
-  colors: any
+  name: string;
+  type: string;
+  breed: string;
+  age: string;
+  weight: string;
+  notes: string;
+  avatar?: string;
+  isActive: boolean;
+  onSelect: () => void;
+  theme: string;
+  colors: any;
 }
 
 export default function PetProfile({
@@ -37,19 +43,19 @@ export default function PetProfile({
   const getPetIcon = () => {
     switch (type.toLowerCase()) {
       case "cat":
-        return <Cat className="h-5 w-5 text-purple-400" />
+        return <Cat className="h-5 w-5 text-purple-400" />;
       case "dog":
-        return <Dog className="h-5 w-5 text-amber-400" />
+        return <Dog className="h-5 w-5 text-amber-400" />;
       case "fish":
-        return <Fish className="h-5 w-5 text-blue-400" />
+        return <Fish className="h-5 w-5 text-blue-400" />;
       case "bird":
-        return <Bird className="h-5 w-5 text-emerald-400" />
+        return <Bird className="h-5 w-5 text-emerald-400" />;
       case "rabbit":
-        return <Rabbit className="h-5 w-5 text-pink-400" />
+        return <Rabbit className="h-5 w-5 text-pink-400" />;
       default:
-        return <PawPrint className="h-5 w-5 text-indigo-400" />
+        return <PawPrint className="h-5 w-5 text-indigo-400" />;
     }
-  }
+  };
 
   return (
     <Card
@@ -62,10 +68,16 @@ export default function PetProfile({
       <CardHeader className="pb-2">
         <div className="flex items-center gap-3">
           <Avatar>
-            {avatar ? <AvatarImage src={avatar} alt={name} /> : <AvatarFallback>{getPetIcon()}</AvatarFallback>}
+            {avatar ? (
+              <AvatarImage src={avatar} alt={name} />
+            ) : (
+              <AvatarFallback>{getPetIcon()}</AvatarFallback>
+            )}
           </Avatar>
           <div>
-            <CardTitle className={cn(isActive && colors.primary)}>{name}</CardTitle>
+            <CardTitle className={cn(isActive && colors.primary)}>
+              {name}
+            </CardTitle>
             <CardDescription>
               {type} • {breed}
             </CardDescription>
@@ -88,6 +100,5 @@ export default function PetProfile({
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }
-

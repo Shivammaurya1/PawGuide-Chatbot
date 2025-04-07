@@ -1,38 +1,38 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { ArrowUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import { ArrowUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ScrollToTopProps {
-  theme: string
-  colors: any
+  theme: string;
+  colors: any;
 }
 
 export default function ScrollToTop({ theme, colors }: ScrollToTopProps) {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
-        setIsVisible(true)
+        setIsVisible(true);
       } else {
-        setIsVisible(false)
+        setIsVisible(false);
       }
-    }
+    };
 
-    window.addEventListener("scroll", toggleVisibility)
-    return () => window.removeEventListener("scroll", toggleVisibility)
-  }, [])
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-    })
-  }
+    });
+  };
 
   return (
     <AnimatePresence>
@@ -48,7 +48,9 @@ export default function ScrollToTop({ theme, colors }: ScrollToTopProps) {
             onClick={scrollToTop}
             className={cn(
               "rounded-full shadow-lg",
-              theme === "dark" ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:bg-gray-100",
+              theme === "dark"
+                ? "bg-gray-800 hover:bg-gray-700"
+                : "bg-white hover:bg-gray-100",
               colors.border,
             )}
             aria-label="Scroll to top"
@@ -58,6 +60,5 @@ export default function ScrollToTop({ theme, colors }: ScrollToTopProps) {
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }
-

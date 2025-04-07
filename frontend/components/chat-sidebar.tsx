@@ -1,14 +1,28 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Search, MessageSquare, Bookmark, PlusCircle, Filter, X, Home } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
+import { useState } from "react";
+import {
+  Search,
+  MessageSquare,
+  Bookmark,
+  PlusCircle,
+  Filter,
+  X,
+  Home,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
   DialogContent,
@@ -17,30 +31,36 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { cn } from "@/lib/utils"
-import { format } from "date-fns"
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 interface ChatSidebarProps {
-  open: boolean
-  setOpen: (open: boolean) => void
-  chatHistories: any[]
-  knowledgeCards: any[]
-  petProfiles: any[]
-  activePet: any | null
-  setActivePet: (petId: string | null) => void
-  loadChatHistory: (historyId: string) => void
-  selectedChatHistory: string | null
-  filterKeyword: string
-  setFilterKeyword: (keyword: string) => void
-  addPetProfile: (pet: any) => void
-  theme: string
-  petTheme: string
-  colors: any
-  isMobile?: boolean
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  chatHistories: any[];
+  knowledgeCards: any[];
+  petProfiles: any[];
+  activePet: any | null;
+  setActivePet: (petId: string | null) => void;
+  loadChatHistory: (historyId: string) => void;
+  selectedChatHistory: string | null;
+  filterKeyword: string;
+  setFilterKeyword: (keyword: string) => void;
+  addPetProfile: (pet: any) => void;
+  theme: string;
+  petTheme: string;
+  colors: any;
+  isMobile?: boolean;
 }
 
 export default function ChatSidebar({
@@ -61,8 +81,8 @@ export default function ChatSidebar({
   colors,
   isMobile = false,
 }: ChatSidebarProps) {
-  const [activeTab, setActiveTab] = useState("chats")
-  const [searchQuery, setSearchQuery] = useState("")
+  const [activeTab, setActiveTab] = useState("chats");
+  const [searchQuery, setSearchQuery] = useState("");
   const [newPet, setNewPet] = useState({
     name: "",
     type: "Dog",
@@ -70,7 +90,7 @@ export default function ChatSidebar({
     age: "",
     weight: "",
     notes: "",
-  })
+  });
 
   // Filter chat histories by keyword and search query
   const filteredChatHistories = chatHistories.filter((history) => {
@@ -80,36 +100,38 @@ export default function ChatSidebar({
         (msg: any) =>
           msg.keywords?.includes(filterKeyword.toLowerCase()) ||
           msg.content.toLowerCase().includes(filterKeyword.toLowerCase()),
-      )
+      );
 
     const matchesSearch =
       !searchQuery ||
       history.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      history.messages.some((msg: any) => msg.content.toLowerCase().includes(searchQuery.toLowerCase()))
+      history.messages.some((msg: any) =>
+        msg.content.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
 
-    return matchesKeyword && matchesSearch
-  })
+    return matchesKeyword && matchesSearch;
+  });
 
   // Filter knowledge cards by keyword and search query
   const filteredKnowledgeCards = knowledgeCards.filter((card) => {
     const matchesKeyword =
       !filterKeyword ||
       card.tags.includes(filterKeyword.toLowerCase()) ||
-      card.content.toLowerCase().includes(filterKeyword.toLowerCase())
+      card.content.toLowerCase().includes(filterKeyword.toLowerCase());
 
     const matchesSearch =
       !searchQuery ||
       card.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      card.content.toLowerCase().includes(searchQuery.toLowerCase())
+      card.content.toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchesKeyword && matchesSearch
-  })
+    return matchesKeyword && matchesSearch;
+  });
 
   // Handle new pet form submission
   const handleAddPet = () => {
-    if (!newPet.name.trim()) return
+    if (!newPet.name.trim()) return;
 
-    addPetProfile(newPet)
+    addPetProfile(newPet);
 
     // Reset form
     setNewPet({
@@ -119,21 +141,25 @@ export default function ChatSidebar({
       age: "",
       weight: "",
       notes: "",
-    })
-  }
+    });
+  };
 
-  if (!open) return null
+  if (!open) return null;
 
   return (
     <div
       className={cn(
         "h-screen flex flex-col border-r",
-        theme === "dark" ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200",
+        theme === "dark"
+          ? "bg-gray-900 border-gray-800"
+          : "bg-white border-gray-200",
         isMobile ? "w-full" : "w-80",
       )}
     >
       <div className="p-4 flex items-center justify-between border-b">
-        <h2 className={cn("text-lg font-semibold", colors.primary)}>PawGuide</h2>
+        <h2 className={cn("text-lg font-semibold", colors.primary)}>
+          PawGuide
+        </h2>
         {isMobile && (
           <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
             <X className="h-5 w-5" />
@@ -147,15 +173,30 @@ export default function ChatSidebar({
           <Input
             type="search"
             placeholder="Search..."
-            className={cn("pl-8", theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200")}
+            className={cn(
+              "pl-8",
+              theme === "dark"
+                ? "bg-gray-800 border-gray-700"
+                : "bg-gray-50 border-gray-200",
+            )}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </div>
 
-      <Tabs defaultValue="chats" value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-        <TabsList className={cn("grid grid-cols-3 mx-2", theme === "dark" ? "bg-gray-800" : "bg-gray-100")}>
+      <Tabs
+        defaultValue="chats"
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="flex-1 flex flex-col"
+      >
+        <TabsList
+          className={cn(
+            "grid grid-cols-3 mx-2",
+            theme === "dark" ? "bg-gray-800" : "bg-gray-100",
+          )}
+        >
           <TabsTrigger value="chats" className="flex items-center gap-1">
             <MessageSquare className="h-4 w-4" />
             <span className="hidden sm:inline">Chats</span>
@@ -185,7 +226,10 @@ export default function ChatSidebar({
             {filterKeyword && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 {filterKeyword}
-                <X className="h-3 w-3 cursor-pointer" onClick={() => setFilterKeyword("")} />
+                <X
+                  className="h-3 w-3 cursor-pointer"
+                  onClick={() => setFilterKeyword("")}
+                />
               </Badge>
             )}
           </div>
@@ -211,13 +255,23 @@ export default function ChatSidebar({
                     <CardHeader className="p-3 pb-1">
                       <CardTitle className="text-sm">{history.title}</CardTitle>
                       <CardDescription className="text-xs">
-                        {format(new Date(history.timestamp), "MMM d, yyyy h:mm a")}
+                        {format(
+                          new Date(history.timestamp),
+                          "MMM d, yyyy h:mm a",
+                        )}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="p-3 pt-0">
                       <p className="text-xs truncate">{history.preview}</p>
                       {history.petContext && (
-                        <Badge variant="outline" className={cn("mt-2 text-xs", colors.border, colors.primary)}>
+                        <Badge
+                          variant="outline"
+                          className={cn(
+                            "mt-2 text-xs",
+                            colors.border,
+                            colors.primary,
+                          )}
+                        >
                           {history.petContext}
                         </Badge>
                       )}
@@ -225,7 +279,12 @@ export default function ChatSidebar({
                   </Card>
                 ))
               ) : (
-                <div className={cn("text-center p-4 rounded-lg", theme === "dark" ? "bg-gray-800" : "bg-gray-100")}>
+                <div
+                  className={cn(
+                    "text-center p-4 rounded-lg",
+                    theme === "dark" ? "bg-gray-800" : "bg-gray-100",
+                  )}
+                >
                   <p className="text-sm text-gray-500">No chat history found</p>
                 </div>
               )}
@@ -248,7 +307,10 @@ export default function ChatSidebar({
             {filterKeyword && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 {filterKeyword}
-                <X className="h-3 w-3 cursor-pointer" onClick={() => setFilterKeyword("")} />
+                <X
+                  className="h-3 w-3 cursor-pointer"
+                  onClick={() => setFilterKeyword("")}
+                />
               </Badge>
             )}
           </div>
@@ -280,7 +342,11 @@ export default function ChatSidebar({
                           <Badge
                             key={i}
                             variant="outline"
-                            className={cn("text-xs cursor-pointer", colors.border, colors.primary)}
+                            className={cn(
+                              "text-xs cursor-pointer",
+                              colors.border,
+                              colors.primary,
+                            )}
                             onClick={() => setFilterKeyword(tag)}
                           >
                             {tag}
@@ -291,8 +357,15 @@ export default function ChatSidebar({
                   </Card>
                 ))
               ) : (
-                <div className={cn("text-center p-4 rounded-lg", theme === "dark" ? "bg-gray-800" : "bg-gray-100")}>
-                  <p className="text-sm text-gray-500">No knowledge cards found</p>
+                <div
+                  className={cn(
+                    "text-center p-4 rounded-lg",
+                    theme === "dark" ? "bg-gray-800" : "bg-gray-100",
+                  )}
+                >
+                  <p className="text-sm text-gray-500">
+                    No knowledge cards found
+                  </p>
                 </div>
               )}
             </div>
@@ -303,7 +376,11 @@ export default function ChatSidebar({
           <div className="p-2">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="w-full flex items-center gap-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full flex items-center gap-1"
+                >
                   <PlusCircle className="h-4 w-4" />
                   Add Pet
                 </Button>
@@ -311,7 +388,9 @@ export default function ChatSidebar({
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Add a New Pet</DialogTitle>
-                  <DialogDescription>Add your pet's information to get personalized advice.</DialogDescription>
+                  <DialogDescription>
+                  Add your pet&rsquo;s information to get personalized advice.
+                  </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
@@ -321,7 +400,9 @@ export default function ChatSidebar({
                     <Input
                       id="pet-name"
                       value={newPet.name}
-                      onChange={(e) => setNewPet({ ...newPet, name: e.target.value })}
+                      onChange={(e) =>
+                        setNewPet({ ...newPet, name: e.target.value })
+                      }
                       className="col-span-3"
                     />
                   </div>
@@ -329,7 +410,12 @@ export default function ChatSidebar({
                     <Label htmlFor="pet-type" className="text-right">
                       Type
                     </Label>
-                    <Select value={newPet.type} onValueChange={(value) => setNewPet({ ...newPet, type: value })}>
+                    <Select
+                      value={newPet.type}
+                      onValueChange={(value) =>
+                        setNewPet({ ...newPet, type: value })
+                      }
+                    >
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Select pet type" />
                       </SelectTrigger>
@@ -350,7 +436,9 @@ export default function ChatSidebar({
                     <Input
                       id="pet-breed"
                       value={newPet.breed}
-                      onChange={(e) => setNewPet({ ...newPet, breed: e.target.value })}
+                      onChange={(e) =>
+                        setNewPet({ ...newPet, breed: e.target.value })
+                      }
                       className="col-span-3"
                     />
                   </div>
@@ -361,7 +449,9 @@ export default function ChatSidebar({
                     <Input
                       id="pet-age"
                       value={newPet.age}
-                      onChange={(e) => setNewPet({ ...newPet, age: e.target.value })}
+                      onChange={(e) =>
+                        setNewPet({ ...newPet, age: e.target.value })
+                      }
                       className="col-span-3"
                     />
                   </div>
@@ -372,7 +462,9 @@ export default function ChatSidebar({
                     <Input
                       id="pet-weight"
                       value={newPet.weight}
-                      onChange={(e) => setNewPet({ ...newPet, weight: e.target.value })}
+                      onChange={(e) =>
+                        setNewPet({ ...newPet, weight: e.target.value })
+                      }
                       className="col-span-3"
                     />
                   </div>
@@ -383,7 +475,9 @@ export default function ChatSidebar({
                     <Textarea
                       id="pet-notes"
                       value={newPet.notes}
-                      onChange={(e) => setNewPet({ ...newPet, notes: e.target.value })}
+                      onChange={(e) =>
+                        setNewPet({ ...newPet, notes: e.target.value })
+                      }
                       className="col-span-3"
                       placeholder="Health conditions, special needs, etc."
                     />
@@ -403,11 +497,16 @@ export default function ChatSidebar({
           <ScrollArea className="flex-1">
             <div className="p-2 space-y-2">
               <div className="mb-2">
-                <h3 className={cn("text-sm font-medium mb-1", colors.primary)}>Active Pet Context</h3>
+                <h3 className={cn("text-sm font-medium mb-1", colors.primary)}>
+                  Active Pet Context
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   <Badge
                     variant={!activePet ? "default" : "outline"}
-                    className={cn("cursor-pointer", !activePet ? colors.button : colors.border)}
+                    className={cn(
+                      "cursor-pointer",
+                      !activePet ? colors.button : colors.border,
+                    )}
                     onClick={() => setActivePet(null)}
                   >
                     None
@@ -416,7 +515,12 @@ export default function ChatSidebar({
                     <Badge
                       key={pet.id}
                       variant={activePet?.id === pet.id ? "default" : "outline"}
-                      className={cn("cursor-pointer", activePet?.id === pet.id ? colors.button : colors.border)}
+                      className={cn(
+                        "cursor-pointer",
+                        activePet?.id === pet.id
+                          ? colors.button
+                          : colors.border,
+                      )}
                       onClick={() => setActivePet(pet.id)}
                     >
                       {pet.name}
@@ -428,7 +532,9 @@ export default function ChatSidebar({
               <Separator />
 
               <div className="space-y-2 mt-2">
-                <h3 className={cn("text-sm font-medium", colors.primary)}>My Pets</h3>
+                <h3 className={cn("text-sm font-medium", colors.primary)}>
+                  My Pets
+                </h3>
                 {petProfiles.length > 0 ? (
                   petProfiles.map((pet) => (
                     <Card
@@ -453,13 +559,24 @@ export default function ChatSidebar({
                       </CardHeader>
                       <CardContent className="p-3 pt-0">
                         {pet.age && <p className="text-xs">Age: {pet.age}</p>}
-                        {pet.weight && <p className="text-xs">Weight: {pet.weight}</p>}
-                        {pet.notes && <p className="text-xs mt-1 line-clamp-2">{pet.notes}</p>}
+                        {pet.weight && (
+                          <p className="text-xs">Weight: {pet.weight}</p>
+                        )}
+                        {pet.notes && (
+                          <p className="text-xs mt-1 line-clamp-2">
+                            {pet.notes}
+                          </p>
+                        )}
                       </CardContent>
                     </Card>
                   ))
                 ) : (
-                  <div className={cn("text-center p-4 rounded-lg", theme === "dark" ? "bg-gray-800" : "bg-gray-100")}>
+                  <div
+                    className={cn(
+                      "text-center p-4 rounded-lg",
+                      theme === "dark" ? "bg-gray-800" : "bg-gray-100",
+                    )}
+                  >
                     <p className="text-sm text-gray-500">No pets added yet</p>
                   </div>
                 )}
@@ -469,6 +586,5 @@ export default function ChatSidebar({
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-
