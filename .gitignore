@@ -1,0 +1,21 @@
+# Root-level ignores
+.env
+.DS_Store
+
+# Node.js (frontend)
+node_modules
+.next
+dist
+.env.local
+
+# Python (backend)
+venv/
+__pycache__/
+*.pyc
+.env
+
+# Logs
+*.log
+
+# OS-specific
+Thumbs.db
