@@ -1678,19 +1678,19 @@ function PetChatbot() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 {
-                  name: "Arib Tanweer",
-                  regNo: "12304717",
-                  avatar: "A",
+                  name: "Nihal Kumar",
+                  regNo: "12303285",
+                  avatar: "N",
                 },
                 {
-                  name: "Shubham",
-                  regNo: "12303663",
+                  name: "Shivam Maurya",
+                  regNo: "12303742",
                   avatar: "S",
                 },
                 {
-                  name: "Vansh Batra",
-                  regNo: "12320191",
-                  avatar: "V",
+                  name: "Nikhil Kumar",
+                  regNo: "12313591",
+                  avatar: "N",
                 },
               ].map((member, index) => (
                 <motion.div
